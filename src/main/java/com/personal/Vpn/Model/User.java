@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 public class User {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String username;
@@ -13,6 +14,16 @@ public class User {
     private Long originIp;
     private String maskedIp;
     private boolean connection= false;
+
+
+    public User(Integer id, String username, String password, Long originIp, String maskedIp, boolean connection) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.originIp = originIp;
+        this.maskedIp = maskedIp;
+        this.connection = connection;
+    }
 
     public String getMaskedIp() {
         return maskedIp;
@@ -65,6 +76,5 @@ public class User {
     public void setMaskedIp(String maskedIp) {
         this.maskedIp = maskedIp;
     }
-
 
 }

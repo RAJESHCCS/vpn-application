@@ -7,19 +7,29 @@ public enum CountryName {
     CHI("004"),
     JPN("005");
 
-    @Override
-    public String toString() {
-        return "CountryName{" +
-                "code='" + code + '\'' +
-                '}';
-    }
 
-    private  final String code;
-
-    private  CountryName(String s){
+    private final String code;
+    private CountryName(String s) {
         code = s;
     }
-    public String toCode(){
-        return this.toCode();
+
+    public String toCode() {
+        return this.code;
     }
-}
+
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    CountryName(String code) {
+//        this.code = code;
+    }
+
+
+
+
+
+
+
+
+

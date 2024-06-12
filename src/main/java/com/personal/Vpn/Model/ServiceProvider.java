@@ -1,22 +1,51 @@
 package com.personal.Vpn.Model;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+public class ServiceProvider
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-public class ServiceProvider {
+    private String name;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Integer id;
-    private  String name;
+    @ManyToOne
+    @JoinColumn
+    private Admin admin;
 
-    public Integer getId() {
+    @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
+    List<Connection> connectionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
+    List<Country> countryList = new ArrayList<>();
+
+    //service provider as parent in manytomany
+    @ManyToMany
+    @JoinTable
+    List<User> users = new ArrayList<>();
+
+
+    public ServiceProvider() {
+    }
+
+    public ServiceProvider(int id, String name, Admin admin, List<Connection> connectionList, List<Country> countryList, List<User> users) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.connectionList = connectionList;
+        this.countryList = countryList;
+        this.users = users;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,6 +65,14 @@ public class ServiceProvider {
         this.admin = admin;
     }
 
+    public List<Connection> getConnectionList() {
+        return connectionList;
+    }
+
+    public void setConnectionList(List<Connection> connectionList) {
+        this.connectionList = connectionList;
+    }
+
     public List<Country> getCountryList() {
         return countryList;
     }
@@ -44,26 +81,11 @@ public class ServiceProvider {
         this.countryList = countryList;
     }
 
-    public List<User> getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
-
-    @ManyToOne
-    @JoinColumn
-    private Admin admin;
-
-    @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
-    List<Country> countryList= new ArrayList<>();
-
-    @ManyToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
-    List<User> user= new ArrayList<>();
-    public  ServiceProvider(){
-
-    }
-
-
 }

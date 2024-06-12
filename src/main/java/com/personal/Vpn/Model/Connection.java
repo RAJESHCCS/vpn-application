@@ -2,16 +2,11 @@ package com.personal.Vpn.Model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Connection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private  Integer id;
-
-    public Connection(Integer id, ServiceProvider serviceProvider, User user) {
-        this.id = id;
-        this.serviceProvider = serviceProvider;
-        this.user = user;
-    }
 
     @ManyToOne
     @JoinColumn
@@ -27,6 +22,11 @@ public class Connection {
 
     public Connection(){
 
+    }
+    public Connection(Integer id, ServiceProvider serviceProvider, User user) {
+        this.id = id;
+        this.serviceProvider = serviceProvider;
+        this.user = user;
     }
 
     public void setServiceProvider(ServiceProvider serviceProvider) {

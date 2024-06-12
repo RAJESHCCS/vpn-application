@@ -19,12 +19,9 @@ public class Admin {
     private String Username;
     private  String Password;
 
-
-
     @OneToMany(mappedBy = "admin", cascade= CascadeType.ALL)
     List<ServiceProvider> serviceProviders = new ArrayList<>();
-//    private String ServiceProvider;
-//    private String  Connection;
+
 
     public Admin(){
     };
@@ -66,5 +63,4 @@ public class Admin {
     public void setServiceProviders(List<ServiceProvider> serviceProviders) {
         this.serviceProviders = serviceProviders;
     }
-
 }
