@@ -2,6 +2,9 @@ package com.personal.Vpn.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 
 public class User {
@@ -13,8 +16,23 @@ public class User {
     private String password;
     private Long originIp;
     private String maskedIp;
-    private boolean connection= false;
+    private Boolean connection= false;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private Country originalCountry;
 
+    @ManyToMany
+    @JoinTable
+    List<ServiceProvider> serviceProviderList = new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Connection> connectionList = new ArrayList<>();
+
+    public List<Connection> getConnectionList() {
+        return connectionList;
+    }
+
+    public void setConnectionList(List<Connection> connectionList) {
+        this.connectionList = connectionList;
+    }
 
     public User(Integer id, String username, String password, Long originIp, String maskedIp, boolean connection) {
         this.id = id;
@@ -77,4 +95,28 @@ public class User {
         this.maskedIp = maskedIp;
     }
 
+
+    public Country getOriginalCountry() {
+        return originalCountry;
+    }
+
+    public void setOriginalCountry(Country originalCountry) {
+        this.originalCountry = originalCountry;
+    }
+
+    public List<ServiceProvider> getServiceProviderList() {
+        return serviceProviderList;
+    }
+
+    public void setServiceProviderList(List<ServiceProvider> serviceProviderList) {
+        this.serviceProviderList = serviceProviderList;
+    }
+
+    public Boolean getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Boolean connection) {
+        this.connection = connection;
+    }
 }

@@ -13,6 +13,10 @@ public enum CountryName {
         code = s;
     }
 
+//    public static boolean equalsIgnoreCase(String string) {
+////        return string;
+//    }
+
     public String toCode() {
         return this.code;
     }
