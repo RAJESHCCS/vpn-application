@@ -11,15 +11,13 @@ public class Connection {
     @ManyToOne
     @JoinColumn
     private ServiceProvider serviceProvider;
-
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
     @ManyToOne
     @JoinColumn
     private  User user;
 
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
     public Connection(){
 
     }

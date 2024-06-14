@@ -43,6 +43,9 @@ public class User {
         this.connection = connection;
     }
 
+    public User() {
+    }
+
     public String getMaskedIp() {
         return maskedIp;
     }

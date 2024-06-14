@@ -4,6 +4,7 @@ import com.personal.Vpn.Model.*;
 import com.personal.Vpn.repository.ConnectionRepository;
 import com.personal.Vpn.repository.ServiceProviderRepository;
 import com.personal.Vpn.repository.UserRepository;
+import com.personal.Vpn.services.ConnectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class ConnectionServiceImpl {
+public class ConnectionServiceImpl implements ConnectionService {
 
     @Autowired
     UserRepository userRepository;
@@ -19,10 +20,13 @@ public class ConnectionServiceImpl {
     ConnectionRepository connectionRepository;
     @Autowired
     ServiceProviderRepository serviceProviderRepository;
-
+    @Override
     public User getConnection(int userId, String countryName) throws Exception {
 
-        User user = userRepository.findById(userId).get();
+//        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception("User not found"));
+
         if (user.getMaskedIp() != null){
             throw new Exception("Already connected");
         }
@@ -67,7 +71,12 @@ public class ConnectionServiceImpl {
         }
         return user;
     }
-//    @Override
+
+
+//        return null;
+//    }
+
+    @Override
     public User disconnect(int userId) throws Exception {
 
         //If the given user was not connected to a vpn, throw "Already disconnected" exception.
@@ -82,7 +91,7 @@ public class ConnectionServiceImpl {
         return user;
 
     }
-//    @Override
+    @Override
     public User communicate(int senderId, int receiverId) throws Exception {
 
         User sender = userRepository.findById(senderId).get();
