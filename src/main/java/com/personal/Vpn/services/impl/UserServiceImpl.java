@@ -26,7 +26,9 @@ public class UserServiceImpl implements UserService {
     private CountryRepository countryRepository3;
 
     @Override
-    public User register(String username, String countryName, String password) throws Exception {
+    public User register(String username, String password, String countryName) throws Exception {
+        System.out.println("User called register method");
+
         String countryNameUpper = countryName.toUpperCase();
         if (!countryNameUpper.equals("IND") && !countryNameUpper.equals("CHI") &&
                 !countryNameUpper.equals("USA") && !countryNameUpper.equals("JPN")) {
@@ -43,7 +45,14 @@ public class UserServiceImpl implements UserService {
         user.setOriginalCountry(country);
 
         user = userRepository3.save(user);
-        user.setOriginIp(user.getOriginalCountry().getGetCountryCode() + "." + user.getId());
+        String countryCode = user.getOriginalCountry().getCountryCode();
+        if (countryCode == null) {
+            throw new Exception("Country code is null");
+        }
+//        user.setOriginIp(Long.valueOf(countryCode + "." + user.getId()));
+//        user.setOriginIp(Long.valueOf(countryCode + "." + user.getId()));
+        user.setOriginIp(countryCode + "." + user.getId());  // Store as String
+
 
         user = userRepository3.save(user);
         return user;

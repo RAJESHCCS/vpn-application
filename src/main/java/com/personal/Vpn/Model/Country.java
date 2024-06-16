@@ -4,36 +4,66 @@ import jakarta.persistence.*;
 
 @Entity
 public class Country {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
-    private Integer Id;
-    private  String countryName;
-    private Integer getCountryCode;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    private String countryName;
+
+    private String countryCode;  // Changed to String for consistency
 
     @OneToOne
     @JoinColumn
     private User user;
 
-
     @ManyToOne
     @JoinColumn
     private ServiceProvider serviceProvider;
 
+    // Default constructor
+    public Country() {
+    }
 
+    // Constructor with parameters
+    public Country(CountryName countryName, String countryCode) {
+        this.countryName = countryName.toString();
+        this.countryCode = countryCode;
+    }
 
-
-
-    public Country(Integer id, String countryName, Integer getCountryCode, User user, ServiceProvider serviceProvider) {
-        Id = id;
+    // Constructor with all fields
+    public Country(Integer id, String countryName, String countryCode, User user, ServiceProvider serviceProvider) {
+        this.id = id;
         this.countryName = countryName;
-        this.getCountryCode = getCountryCode;
+        this.countryCode = countryCode;
         this.user = user;
         this.serviceProvider = serviceProvider;
     }
 
-    public Country(CountryName countryName, String code) {
+    // Getters and Setters
+    public Integer getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     public User getUser() {
         return user;
@@ -50,40 +80,4 @@ public class Country {
     public void setServiceProvider(ServiceProvider serviceProvider) {
         this.serviceProvider = serviceProvider;
     }
-
-
-    public  Country(){
-
-    };
-
-
-
-
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public Integer getGetCountryCode() {
-        return getCountryCode;
-    }
-
-    public void setGetCountryCode(Integer getCountryCode) {
-        this.getCountryCode = getCountryCode;
-    }
-
 }
-
-
-

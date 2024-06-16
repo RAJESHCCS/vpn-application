@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
 public class User {
 
     @Id
@@ -14,17 +13,19 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private Long originIp;
+    private String originIp;  // Changed to String
     private String maskedIp;
-    private Boolean connection= false;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private Boolean connection = false;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Country originalCountry;
 
     @ManyToMany
     @JoinTable
-    List<ServiceProvider> serviceProviderList = new ArrayList<>();
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    List<Connection> connectionList = new ArrayList<>();
+    private List<ServiceProvider> serviceProviderList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Connection> connectionList = new ArrayList<>();
 
     public List<Connection> getConnectionList() {
         return connectionList;
@@ -34,7 +35,7 @@ public class User {
         this.connectionList = connectionList;
     }
 
-    public User(Integer id, String username, String password, Long originIp, String maskedIp, boolean connection) {
+    public User(Integer id, String username, String password, String originIp, String maskedIp, boolean connection) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -82,11 +83,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getOriginIp() {
+    public String getOriginIp() {  // Changed to String
         return originIp;
     }
 
-    public void setOriginIp(Long originIp) {
+    public void setOriginIp(String originIp) {  // Changed to String
         this.originIp = originIp;
     }
 
@@ -97,7 +98,6 @@ public class User {
     public void setMaskedIp(String maskedIp) {
         this.maskedIp = maskedIp;
     }
-
 
     public Country getOriginalCountry() {
         return originalCountry;
