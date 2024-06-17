@@ -35,20 +35,28 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         Country originalCountry = user.getOriginalCountry();
         if (originalCountry != null && countryName.equalsIgnoreCase(originalCountry.getCountryName())) {
+            System.out.print(originalCountry);
+            System.out.print(user);
             return user;
+
         }
 
         if (user.getServiceProviderList() == null || user.getServiceProviderList().isEmpty()) {
+//            System.out.print();
+//            System.out.print(user);
             throw new Exception("No service providers available for the user");
         }
 
         //ServiceProvider serviceProviderWithLowestId = null;
         List<ServiceProvider> serviceProviderList = user.getServiceProviderList();
+        user.setServiceProviderList(serviceProviderList);
+        System.out.println("this is value will be sent to service providerList"+serviceProviderList);
         ServiceProvider serviceProviderWithLowestId = null;
         int lowestId = Integer.MAX_VALUE;
         Country targetCountry = null;
 
         for (ServiceProvider serviceProvider : user.getServiceProviderList()) {
+
             for (Country country : serviceProvider.getCountryList()) {
                 if (countryName.equalsIgnoreCase(country.getCountryName()) && serviceProvider.getId() < lowestId) {
                     lowestId = serviceProvider.getId();
@@ -136,4 +144,6 @@ public class ConnectionServiceImpl implements ConnectionService {
         }
         throw new Exception("Country code not recognized");
     }
+
+
 }
